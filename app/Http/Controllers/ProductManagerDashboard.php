@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\Product\ProductServiceImplement;
 
@@ -17,9 +18,13 @@ class ProductManagerDashboard extends Controller
     // }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $barang = $this->barangService->getAllBarang();
+        if($request->has('search')){
+            $barang = Product::where('namaBarang', 'like', '%'. $request->search. '%')->get();
+        }else{
+            $barang = $this->barangService->getAllBarang();
+        }
         return view('manager.produk')->with('data', $barang);
     }
 

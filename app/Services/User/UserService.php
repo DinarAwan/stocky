@@ -11,4 +11,9 @@ interface UserService extends BaseService{
     public function login(array $credentials);
     public function logout();
     public function redirectBasedOnRole($user);
+
+    public function getAllUsers();
+    public function getById($id);
+    public function hapusUser($id);
+    public function updateUser($id, array $newDetails);
 }

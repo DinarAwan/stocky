@@ -43,4 +43,26 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
     {
         return $this->model->find($id);
     }
+
+    public function findAllUsers(){
+        return $this->model->orderBy('id', 'desc')->get();
+    }
+
+    public function getById($id){
+        return $this->model->find($id);
+    }
+
+    public function hapusUser($id){
+        return $this->model->destroy($id);
+    }
+
+    public function updateUser($id, array $newDetails){
+        if (isset($newDetails['_token'])) {
+            unset($newDetails['_token']);
+        }
+        if (isset($newDetails['_method'])) {
+            unset($newDetails['_method']);
+        }
+        return $this->model->whereId($id)->update($newDetails);
+    }
 }

@@ -18,14 +18,22 @@ class StockController extends Controller
         $this->stockService = $stokServive;
     }
    
-    public function index(){
-        $stok = $this->stockService->getAllStok();
+    public function index(Request $request){
+        if($request->has('search')){
+            $stok = StockTransaction::where('type', 'like', '%'. $request->search. '%')->orderBy('date', 'desc')->get();
+        }else{
+            $stok = $this->stockService->getAllStok();
+        }
         return view('stokTransaksi.index')->with('stok', $stok);
     }
 
-    public function stokForAdmin()
+    public function stokForAdmin(Request $request)
     {
-        $stok = $this->stockService->getAllStok();
+        if($request->has('search')){
+            $stok = StockTransaction::where('type', 'like', '%'. $request->search. '%')->orderBy('date', 'desc')->get();
+        }else{
+            $stok = $this->stockService->getAllStok();
+        }
         return view('admin.stok')->with('stok', $stok);
     }
 

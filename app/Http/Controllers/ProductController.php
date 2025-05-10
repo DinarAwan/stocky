@@ -18,9 +18,14 @@ class ProductController extends Controller
     // }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $barang = $this->barangService->getAllBarang();
+        if($request->has('search')){
+            $barang = Product::where('namaBarang', 'like', '%'. $request->search. '%')->get();
+        }else{
+            $barang = $this->barangService->getAllBarang();
+        }
+        
         return view('products.index')->with('data', $barang);
     }
     //-

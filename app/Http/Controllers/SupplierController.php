@@ -14,9 +14,13 @@ class SupplierController extends Controller
         $this->supplierService = $supplierService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $supplier = $this->supplierService->getAllSupplier();
+        if($request->has('search')){
+            $supplier = Supplier::where('nama', 'like', '%'.$request->search.'%')->get();
+        }else{
+            $supplier = $this->supplierService->getAllSupplier();
+        }
         return view('supplier.index')->with('supplier', $supplier);
     }
 
@@ -59,8 +63,12 @@ class SupplierController extends Controller
         return redirect()->route('supplier.index')->with('success', 'Barang berhasil dihapus.');
     }
 
-    public function supplierForManager(){
-        $supplier = $this->supplierService->getAllSupplier();
+    public function supplierForManager(Request $request){
+        if($request->has('search')){
+            $supplier = Supplier::where('nama', 'like', '%'. $request->search. '%')->get();
+        }else{
+            $supplier = $this->supplierService->getAllSupplier();
+        }
         return view('manager.supplier')->with('supplier', $supplier);
     }
 }

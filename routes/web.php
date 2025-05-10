@@ -44,7 +44,7 @@ Route::name('practice.')->group(function () {
 });
 
 // Route::get('result', [CobaController::class, 'index']);
-Route::get('users', [UserController::class, 'index']);
+
 
 // Route::get('produk', [ProductController::class, 'index']);
 // Route::get('produk/create', [ProductController::class, 'create']);
@@ -91,5 +91,11 @@ Route::post('sesi', [SesiController::class, 'login']);
 Route::get('/logout', [SesiController::class, 'logout']);
 Route::get('sesi/register', [SesiController::class, 'reg']);
 Route::post('sesi/register', [SesiController::class, 'register']);
+
+//
+Route::get('users', [UserController::class, 'index'])->name('users');
+Route::delete('user-delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('user-edit/{id}', [UserController::class, 'edit']);
+Route::post('user-edit/{id}', [UserController::class, 'update']);
 
  

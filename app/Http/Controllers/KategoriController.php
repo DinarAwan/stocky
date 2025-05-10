@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriModel;
 use App\Services\Kategori\KategoriServiceImplement;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,13 @@ class KategoriController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index(){
-        $kategoris = $this->categoryService->getPaginatedCategories();
+    public function index(Request $request){
+        if($request->has('search')){
+            $kategoris = KategoriModel::where('kategori', 'like', '%'. $request->search. '%')->get();
+        }else{
+            $kategoris = $this->categoryService->getPaginatedCategories();
+
+        }
         return view('kategori/index')->with('kategoris', $kategoris);
     }
 

@@ -80,4 +80,20 @@ class UserServiceImplement extends ServiceApi implements UserService{
             return redirect('dashboard/staf');
         }
     }
+
+    public function getAllUsers(){
+        return $this->mainRepository->findAllUsers();
+    }
+
+    public function getById($id){
+        return $this->mainRepository->getById($id);
+    }
+
+    public function hapusUser($id){
+        return $this->mainRepository->hapusUser($id);
+    }
+
+    public function updateUser($id, array $newDetails){
+        return $this->mainRepository->updateUser($id, $newDetails);
+    }
 }
