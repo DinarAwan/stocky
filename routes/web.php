@@ -51,7 +51,7 @@ Route::name('practice.')->group(function () {
 
 //dashboard
 Route::get('dashboard', [DashAdminController::class, 'index']);
-Route::get('dashboard/admin', [ProductController::class, 'HitungData']);
+Route::get('dashboard', [ProductController::class, 'HitungData']);
 Route::get('dashboard', [StockController::class, 'stokForAdminDash']);
 
 

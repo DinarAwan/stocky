@@ -10,15 +10,12 @@ use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 class DashAdminController extends Controller
 {
     public function index(){
-        return view('dashboard.admin');
+        $TotalProduk = Product::count();
+        return view('dashboard.admin')->with('data', $TotalProduk);
     }
    
  
-    public function HitungData(){
-        $TotalProduk = Product::count();
-        return view('dashboard/admin', ['hitungProduk' => $TotalProduk]);
-
-    }
+   
    
 
     

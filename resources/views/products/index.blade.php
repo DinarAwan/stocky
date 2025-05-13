@@ -67,6 +67,12 @@ $data = json_decode($json, true);
                                 Stock Minimum
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                Harga Beli
+                            </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                Harga Jual
+                            </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                 Deskripsi
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -74,6 +80,9 @@ $data = json_decode($json, true);
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                 Supplier
+                            </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                Gambar
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                 Actions
@@ -101,6 +110,11 @@ $data = json_decode($json, true);
                             <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
                                {{$product->stock}}
                             </td>
+                            <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
+                                Rp.{{$product->harga_beli}}
+                             </td><td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
+                                Rp.{{$product->harga_jual}}
+                             </td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$product->deskripsi}}</td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $product->kategori->kategori}}</td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $product->supplier->nama}}</td>
@@ -114,6 +128,10 @@ $data = json_decode($json, true);
                                     {{ $user['status'] }}
                                 </div> --}}
                                
+                            <td>
+                                @if ($product->foto)
+                                    <img src="{{url('foto').'/'. $product->foto}}" alt="">
+                                @endif
                             </td>
                             <td class="p-4 space-x-2 whitespace-nowrap">
                                 <a href="{{ route('produk.edit', $product->id) }}" type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">

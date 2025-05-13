@@ -14,7 +14,7 @@
     })->unique('id')->values();
 @endphp
 
-<form method="POST" action="{{ route('produk.store') }}">
+<form method="POST" action="{{ route('produk.store') }}" enctype="multipart/form-data">
   @csrf
     <div class="space-y-12 p-12">
 
@@ -85,13 +85,42 @@
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">
-            <label for="stock" class="block text-sm/6 font-medium text-gray-900">Stock</label>
+            <label for="stock" class="block text-sm/6 font-medium text-gray-900">Stock Minimum</label>
             <div class="mt-2">
               <input type="number" name="stock" id="stock" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
             </div>
           </div>
         </div>
+      
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label for="harga_beli" class="block text-sm/6 font-medium text-gray-900">Harga Beli</label>
+          <div class="mt-2">
+            <input type="number" name="harga_beli" id="harga_beli" step="0.01" min="0" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          </div>
+        </div>
       </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label for="harga_jual" class="block text-sm/6 font-medium text-gray-900">Harga Jual</label>
+          <div class="mt-2">
+            <input type="number" name="harga_jual" id="harga_jual" step="0.01" min="0" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label for="foto" class="block text-sm/6 font-medium text-gray-900">Foto</label>
+          <div class="mt-2">
+            <input type="file" name="foto" id="foto" step="0.01" min="0" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          </div>
+        </div>
+      </div>
+
+    </div>
   
       
       <div class="border-b border-gray-900/10 pb-12">

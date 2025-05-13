@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Services\Product\ProductServiceImplement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use App\Services\Product\ProductServiceImplement;
 
 class ProductController extends Controller
 {
@@ -41,21 +42,38 @@ class ProductController extends Controller
         return view('products.create')->with('data', $barang);
     }
 
+   
+
+
     public function store(Request $request)
-    {
-        $request->validate([
-            'namaBarang' => 'required',
-            'deskripsi' => 'required',
-            'kategori_id' => 'required',
-            'supplier_id' => 'required',
-            'stock' => 'required'
-        ]);
-        
-        $this->barangService->createBarang($request->all());
-        
-        return redirect()->route('produk.index')
-            ->with('success', 'Barang berhasil ditambahkan.');
+{
+    $validated = $request->validate([
+        'namaBarang' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'kategori_id' => 'required|exists:kategori,id',
+        'supplier_id' => 'required|exists:suppliers,id',
+        'stock' => 'required|integer|min:0',
+        'harga_beli' => 'required|numeric|min:0',
+        'harga_jual' => 'required|numeric|min:0',
+        'foto' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048'
+    ]);
+
+    $foto_nama = null;
+
+    if ($request->hasFile('foto')) {
+        $foto_file = $request->file('foto');
+        $foto_nama = now()->format('YmdHis') . '.' . $foto_file->getClientOriginalExtension();
+        $foto_file->move(public_path('foto'), $foto_nama);
     }
+
+    $validated['foto'] = $foto_nama;
+
+    $this->barangService->createBarang($validated);
+
+    return redirect()->route('produk.index')
+        ->with('success', 'Barang berhasil ditambahkan.');
+}
+
 
     public function show($id)
     {
@@ -77,7 +95,9 @@ class ProductController extends Controller
             'deskripsi' => 'required',
             'kategori_id' => 'required',
             'supplier_id' => 'required',
-            'stock' => 'required'
+            'stock' => 'required',
+            'harga_beli' => 'required',
+            'harga_jual' => 'required',
         ]);
         
         $this->barangService->updateBarang($id, $request->all());
@@ -88,10 +108,15 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $this->barangService->deleteBarang($id);
-        
+
+        $data = Product::where('id', $id)->first();
+        File::delete(public_path('foto'). '/'. $data->foto);
+        Product::where('id', $id)->delete();
         return redirect()->route('produk.index')
-            ->with('success', 'Barang berhasil dihapus.');
+        ->with('success', 'Barang berhasil dihapus.');
+
+        // $this->barangService->deleteBarang($id);
+        
     }
 
    

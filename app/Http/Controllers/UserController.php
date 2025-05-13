@@ -15,30 +15,13 @@ class UserController extends Controller
         $this->userService=$userService;
     }
 
-    // public function temukanEmail($email){
-    //     $result = $this->userService->manggilEmail($email);
-    //     return response()->json([
-    //         "success" => true,
-    //         "code" => 200,
-    //         "data" => $result
-    //     ]);
-    // }
-
-    
-
-    // public function index(){
-    //     $data = User::all();
-    //     return view('users.user')->with('data', $data);
-    // }
 
     public function index(Request $request){
-        if($request->has('search')){
-            $data = User::where('name', 'like', '%' .$request->search.'%')->get();
-      
+       if($request->has('search')){
+            $data = User::where('name', 'like', '%'. $request->search. '%')->get();
         }else{
             $data = $this->userService->getAllUsers();
         }
-
         return view('users.user')->with('data', $data);
     }
 
