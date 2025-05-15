@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('example.layouts.default.dashboardAdmin')
 @section('content')
 @vite(['resources/css/app.css','resources/js/app.js'])
 <form method="POST" action="{{ route('supplier.update', $supplier->id) }}">

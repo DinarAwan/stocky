@@ -29,7 +29,7 @@ class KategoriRepositoryImplement extends Eloquent implements KategoriRepository
 
     public function getPaginated($perPage = 10)
     {
-        return $this->model->orderBy('kategori', 'asc')->paginate($perPage);
+        return $this->model->orderBy('id', 'asc')->paginate($perPage);
     }
 
     public function getById($id)

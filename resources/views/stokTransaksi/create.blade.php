@@ -21,7 +21,13 @@
             <div class="sm:col-span-3">
               <label for="quantity" class="block text-sm/6 font-medium text-gray-900">User</label>
               <div class="mt-2">
-                <input type="text" name="user_id" id="user_id" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                {{-- <input type="text" name="user_id" id="user_id" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"> --}}
+                <select id="user_id" name="user_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                  @foreach($user as $product)
+                  <option value="{{$product->id}}">{{ $product->name }}</option>
+                  @endforeach
+                </select>
+              
               </div>
             </div>
           </div>
@@ -29,14 +35,13 @@
             <div class="sm:col-span-3">
               <label for="quantity" class="block text-sm/6 font-medium text-gray-900">Nama Barang</label>
               <div class="mt-2">
-                <input type="text" name="product_id" id="product_id" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-
-                {{-- <select id="product_id" name="product_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                @foreach($kategoriUnik as $stok)
-                <option value="{{$stok->id}}">{{ $stok->namaBarang }}</option>
-                @endforeach
-              </option> --}}
+                {{-- <input type="text" name="product_id" id="product_id" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"> --}}
+                <select id="product_id" name="product_id" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                  @foreach($barang as $product)
+                  <option value="{{$product->id}}">{{ $product->namaBarang }}</option>
+                  @endforeach
                 </select>
+               
                 
 
                 

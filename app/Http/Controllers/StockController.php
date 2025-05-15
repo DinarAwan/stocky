@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StockTransaction;
-use App\Services\StockTransaction\StockTransactionServiceImplement;
 use Illuminate\Http\Request;
+use App\Models\StockTransaction;
+use App\Services\User\UserService;
+use App\Services\Product\ProductServiceImplement;
+use App\Services\StockTransaction\StockTransactionServiceImplement;
 
 class StockController extends Controller
 {
@@ -13,9 +15,16 @@ class StockController extends Controller
     //     return view('stokTransaksi.index')->with('stok', $stok);
     // }
     protected $stockService;
+    private $userService;
+    protected $barangService;
 
-    public function __construct(StockTransactionServiceImplement $stokServive){
-        $this->stockService = $stokServive;
+    public function __construct(StockTransactionServiceImplement $stokServive, UserService $userService, ProductServiceImplement $barangService){
+        [
+            $this->stockService = $stokServive,
+            $this->userService=$userService,
+            $this->barangService = $barangService,
+        ];
+        
     }
    
     public function index(Request $request){
@@ -60,7 +69,9 @@ class StockController extends Controller
 
     public function create(){
         $stok = $this->stockService->getAllStok();
-        return view('stokTransaksi.create')->with('stok', $stok);
+        $user = $this->userService->getAllUsers();
+        $barang = $this->barangService->getAllBarang();
+        return view('stokTransaksi.create', ['stok' => $stok, 'user' => $user, 'barang' => $barang]);
     }
 
     public function store(Request $request){
@@ -77,7 +88,9 @@ class StockController extends Controller
 
     public function edit($id){
         $stok = $this->stockService->getStokById($id);
-        return view('stokTransaksi/edit')->with('stok', $stok);
+        $user = $this->userService->getAllUsers();
+        $barang = $this->barangService->getAllBarang();
+        return view('stokTransaksi/edit',  ['stok' => $stok, 'user' => $user, 'barang' => $barang]);
     }
 
     public function update(Request $request, $id){

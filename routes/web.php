@@ -50,7 +50,6 @@ Route::name('practice.')->group(function () {
 // Route::get('produk/create', [ProductController::class, 'create']);
 
 //dashboard
-Route::get('dashboard', [DashAdminController::class, 'index'])->middleware('userAkses:admin');
 Route::get('dashboard', [ProductController::class, 'HitungData'])->middleware('userAkses:admin');
 Route::get('dashboard', [StockController::class, 'stokForAdminDash'])->middleware('userAkses:admin');
 

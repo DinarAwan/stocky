@@ -17,7 +17,7 @@ class UserController extends Controller
 
 
     public function index(Request $request){
-       if($request->has('search')){
+        if($request->has('search')){
             $data = User::where('name', 'like', '%'. $request->search. '%')->get();
         }else{
             $data = $this->userService->getAllUsers();

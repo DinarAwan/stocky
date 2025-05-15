@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\KategoriModel;
 use Illuminate\Support\Facades\File;
 use App\Services\Product\ProductServiceImplement;
+use App\Services\Kategori\KategoriServiceImplement;
+use App\Services\Supplier\SupplierServiceImplement;
 
 class ProductController extends Controller
 {
     protected $barangService;
-    public function __construct(ProductServiceImplement $barangService)
+    protected $supplierService;
+    protected $categoryService;
+    public function __construct(ProductServiceImplement $barangService, KategoriServiceImplement $categoryService, SupplierServiceImplement $supplierService)
     {
-        $this->barangService = $barangService;
+        [
+            $this->barangService = $barangService,
+        $this->categoryService = $categoryService,
+        $this->supplierService = $supplierService
+        ];
+        
     }
     // public function create(){
     //     return view('products/create');
@@ -27,7 +37,8 @@ class ProductController extends Controller
             $barang = $this->barangService->getAllBarang();
         }
         
-        return view('products.index')->with('data', $barang);
+        return view('products.index', ['data' => $barang]);
+        // ->with('data', $barang)
     }
     //-
     public function indexForStok()
@@ -39,7 +50,9 @@ class ProductController extends Controller
     public function create()
     {
         $barang = $this->barangService->getAllBarang();
-        return view('products.create')->with('data', $barang);
+        $kategori = $this->categoryService->getPaginatedCategories();
+        $supplier = $this->supplierService->getAllSupplier();
+        return view('products.create', ['data' => $barang, 'kategori' => $kategori, 'supplier' => $supplier]);
     }
 
    
@@ -49,7 +62,7 @@ class ProductController extends Controller
 {
     $validated = $request->validate([
         'namaBarang' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
+        'deskripsi' => '',
         'kategori_id' => 'required|exists:kategori,id',
         'supplier_id' => 'required|exists:suppliers,id',
         'stock' => 'required|integer|min:0',
@@ -84,15 +97,17 @@ class ProductController extends Controller
     public function edit($id)
     {
         $barang = $this->barangService->getBarangById($id);
+        $data = $this->categoryService->getPaginatedCategories();
+        $data = $this->supplierService->getAllSupplier();
         // return view('products.edit', compact('barang'));
-        return view('products.edit')->with('barang', $barang);
+        return view('products.edit', ['barang' => $barang, 'data' => $data]);
     }   
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'namaBarang' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => '',
             'kategori_id' => 'required',
             'supplier_id' => 'required',
             'stock' => 'required',
@@ -118,6 +133,8 @@ class ProductController extends Controller
         // $this->barangService->deleteBarang($id);
         
     }
+
+    
 
    
 }
