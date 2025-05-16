@@ -23,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
+Route::get('/', function(){
+    return redirect('/sesi');
+});
 
 Route::name('index-practice')->get('/njay', function () {
     return view('example.content.crud.products');

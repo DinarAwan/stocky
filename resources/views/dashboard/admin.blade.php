@@ -6,7 +6,7 @@
     <div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
       <div class="w-full">
         <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Jumlah Produk</h3>
-        <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">23</span>
+        <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{-- {{$barang}} --}}0</span>{{--  maaf mas yang count product ngga tau kenpa kok ga bisa jalan --}}
         <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
         </p>
       </div>
@@ -38,9 +38,9 @@
       <div class="w-full">
         <h3 class="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">STOCK</h3>
         <div class="flex items-center mt-9">
-          <div class="w-16 text-sm font-medium dark:text-white">50+</div>
+          <div class="w-16 text-sm font-medium dark:text-white">0</div> {{--masih belajar untuk menjumlahkan stok berdasarkan kategori--}}
           <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 18%"></div>
+            <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 2%"></div>
           </div>
         </div>
         

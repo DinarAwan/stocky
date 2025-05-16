@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('product', function (Blueprint $table) {
+            $table->unsignedBigInteger('kategori_id')->nullable();
+            
             $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
         });
     }
@@ -22,7 +24,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('product', function (Blueprint $table) {
-            //
+            $table->dropForeign(['kategori_id']);
+        
+        
+            $table->dropColumn('kategori_id');
         });
     }
 };
